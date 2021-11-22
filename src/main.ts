@@ -4,6 +4,9 @@ import { AppModule } from './app.module';
 import * as csurf from 'csurf';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
+import { Logger } from '@nestjs/common';
+
+const logger = new Logger();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -23,7 +26,7 @@ async function bootstrap() {
   app.use(compression());
 
   await app.listen(8080, async () =>
-    console.log(`API Gateway Service UP at ${await app.getUrl()}`),
+    logger.log(`API Gateway Service UP at ${await app.getUrl()}`),
   );
 }
 bootstrap();
