@@ -2,10 +2,18 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 import { AssociateController } from './associate.controller';
+import { PlanController } from './plan/plan.controller';
+import { TypeController } from './type/type.controller';
+import { ReimbursementController } from './reimbursement/reimbursement.controller';
 
 @Module({
   imports: [ConfigModule.forRoot({ cache: true })],
-  controllers: [AssociateController],
+  controllers: [
+    AssociateController,
+    PlanController,
+    TypeController,
+    ReimbursementController,
+  ],
   providers: [
     {
       provide: 'GISA_ASSOCIATE_SERVICE',

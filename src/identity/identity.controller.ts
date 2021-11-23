@@ -30,7 +30,7 @@ export class IdentityController {
   async register(@Body() request: any) {
     this.logger.log(request);
 
-    return this.identityClient.send<string>({ cmd: 'create' }, request);
+    return this.identityClient.send<string>({ cmd: 'account.create' }, request);
   }
 
   @Get('/:id')
@@ -38,7 +38,7 @@ export class IdentityController {
   async identity_info(@Param() param: any) {
     this.logger.log(param);
 
-    return this.identityClient.send<string>({ cmd: 'list' }, param);
+    return this.identityClient.send<string>({ cmd: 'account.list' }, param);
   }
 
   @Get('/')
@@ -46,7 +46,7 @@ export class IdentityController {
   async identities() {
     this.logger.log('');
 
-    return this.identityClient.send<string>({ cmd: 'all' }, {});
+    return this.identityClient.send<string>({ cmd: 'account.all' }, {});
   }
 
   @Delete('/:id')
@@ -54,7 +54,7 @@ export class IdentityController {
   async delete(@Param() param: any) {
     this.logger.log(param);
 
-    return this.identityClient.send<string>({ cmd: 'remove' }, param);
+    return this.identityClient.send<string>({ cmd: 'account.remove' }, param);
   }
 
   @Put('/:id')
@@ -64,6 +64,6 @@ export class IdentityController {
       ...param,
       ...request,
     };
-    return this.identityClient.send<string>({ cmd: 'update' }, payload);
+    return this.identityClient.send<string>({ cmd: 'account.update' }, payload);
   }
 }
