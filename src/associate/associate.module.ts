@@ -5,6 +5,7 @@ import { AssociateController } from './associate.controller';
 import { PlanController } from './plan/plan.controller';
 import { TypeController } from './type/type.controller';
 import { ReimbursementController } from './reimbursement/reimbursement.controller';
+import { PlanTypeController } from './plan-type/plan-type.controller';
 
 @Module({
   imports: [ConfigModule.forRoot({ cache: true })],
@@ -13,6 +14,7 @@ import { ReimbursementController } from './reimbursement/reimbursement.controlle
     PlanController,
     TypeController,
     ReimbursementController,
+    PlanTypeController,
   ],
   providers: [
     {

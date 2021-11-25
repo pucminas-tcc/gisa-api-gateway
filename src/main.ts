@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as csurf from 'csurf';
 import * as helmet from 'helmet';
 import * as compression from 'compression';
 import { Logger } from '@nestjs/common';
@@ -21,7 +20,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.setGlobalPrefix('api/v1');
-  // app.use(csurf());
   app.use(helmet());
   app.use(compression());
 

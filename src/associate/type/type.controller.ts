@@ -2,7 +2,7 @@ import { Controller, Get, Inject, Logger, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
-@Controller('associate/type')
+@Controller('associate-type')
 export class TypeController {
   private readonly logger = new Logger(TypeController.name);
 

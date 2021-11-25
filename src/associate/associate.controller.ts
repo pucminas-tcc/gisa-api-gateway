@@ -19,7 +19,7 @@ export class AssociateController {
   ) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get('/')
+  @Get()
   async associates() {
     return await this.associateClient.send<string>(
       { cmd: 'associate.all' },
@@ -28,7 +28,7 @@ export class AssociateController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/:id')
+  @Get(':id')
   async associate_info(@Param() param: any) {
     this.logger.log('.');
   }
