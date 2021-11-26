@@ -11,8 +11,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
   const config = new DocumentBuilder()
-    .setTitle('GLS API Gateway')
-    .setDescription('Swagger documentation for the GLS API Gateway ')
+    .setTitle('GISA API Gateway')
+    .setDescription('Swagger documentation for the GISA API Gateway ')
     .setVersion('1.0.0')
     .build();
 

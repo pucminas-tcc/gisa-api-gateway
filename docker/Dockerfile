@@ -1,18 +1,17 @@
-FROM node:latest-alpine AS base
+FROM node:17-alpine3.12 AS base
 
 FROM base as development
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm install glob rimraf
-
-RUN npm install
+RUN yarn
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 FROM base as production
 
@@ -21,9 +20,10 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm install --only=production
+RUN yarn install --production
 
 COPY --from=development /usr/src/app/dist ./dist
 

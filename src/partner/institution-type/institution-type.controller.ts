@@ -11,7 +11,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
-@Controller('partner/institution-type')
+@Controller('partner-institution-type')
 export class InstitutionTypeController {
   private readonly logger = new Logger(InstitutionTypeController.name);
 

@@ -11,7 +11,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
-@Controller('partner/medical-procedure')
+@Controller('partner-medical-procedure')
 export class MedicalProcedureController {
   private readonly logger = new Logger(MedicalProcedureController.name);
 
@@ -31,8 +31,17 @@ export class MedicalProcedureController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Post('/')
+  async create(@Body() payload: any) {
+    return await this.client.send<string>(
+      { cmd: 'medical-procedure.create' },
+      payload,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
-  async plan_info(@Param() param: any) {
+  async info(@Param() param: any) {
     this.logger.log('-');
   }
 }

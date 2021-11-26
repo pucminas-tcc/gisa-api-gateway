@@ -6,12 +6,13 @@ import {
   Logger,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
-@Controller('partner/associate-record')
+@Controller('partner-associate-record')
 export class AssociateRecordController {
   private readonly logger = new Logger(AssociateRecordController.name);
 
@@ -28,6 +29,28 @@ export class AssociateRecordController {
   @Get('/')
   async all() {
     return await this.client.send<string>({ cmd: 'associate-record.all' }, {});
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/')
+  async create(@Body() payload: any) {
+    return await this.client.send<string>(
+      { cmd: 'associate-record.create' },
+      payload,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('/:id')
+  async update(@Body() request: any, @Param() param: any) {
+    const payload = {
+      ...param,
+      ...request,
+    };
+    return await this.client.send<string>(
+      { cmd: 'associate-record.update' },
+      payload,
+    );
   }
 
   @UseGuards(JwtAuthGuard)

@@ -1,15 +1,17 @@
 import {
+  Body,
   Controller,
   Get,
   Inject,
   Logger,
   Param,
+  Post,
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
-@Controller('partner/institution')
+@Controller('partner-institution')
 export class InstitutionController {
   private readonly logger = new Logger(InstitutionController.name);
 
@@ -26,6 +28,15 @@ export class InstitutionController {
   @Get('/')
   async all() {
     return await this.client.send<string>({ cmd: 'institution.all' }, {});
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/')
+  async create(@Body() payload: any) {
+    return await this.client.send<string>(
+      { cmd: 'institution.create' },
+      payload,
+    );
   }
 
   @UseGuards(JwtAuthGuard)

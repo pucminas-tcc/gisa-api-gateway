@@ -6,12 +6,13 @@ import {
   Logger,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
-@Controller('partner/medical-procedure-authorization')
+@Controller('partner-medical-procedure-authorization')
 export class MedicalProcedureAuthorizationController {
   private readonly logger = new Logger(
     MedicalProcedureAuthorizationController.name,
@@ -36,8 +37,30 @@ export class MedicalProcedureAuthorizationController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Post('/')
+  async create(@Body() payload: any) {
+    return await this.client.send<string>(
+      { cmd: 'medical-procedure-authorization.create' },
+      payload,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('/:id')
+  async update(@Body() request: any, @Param() param: any) {
+    const payload = {
+      ...param,
+      ...request,
+    };
+    return await this.client.send<string>(
+      { cmd: 'medical-procedure-authorization.update' },
+      payload,
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
-  async plan_info(@Param() param: any) {
+  async info(@Param() param: any) {
     this.logger.log('-');
   }
 }
