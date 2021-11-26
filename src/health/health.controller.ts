@@ -14,7 +14,7 @@ export class HealthController {
 
   @Get()
   @HealthCheck()
-  check() {
+  private check() {
     return this.health.check([
       () => this.http.pingCheck('alive', 'https://1.1.1.1'),
     ]);

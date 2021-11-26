@@ -22,9 +22,9 @@ export class IdentityController {
     private readonly identityClient: ClientProxy,
   ) {}
 
-  async onApplicationBootstrap() {
-    await this.identityClient.connect();
-  }
+  // async onApplicationBootstrap() {
+  //   await this.identityClient.connect();
+  // }
 
   @Post('/')
   async register(@Body() request: any) {

@@ -21,9 +21,9 @@ export class PlanTypeController {
     private readonly client: ClientProxy,
   ) {}
 
-  async onApplicationBootstrap() {
-    await this.client.connect();
-  }
+  // async onApplicationBootstrap() {
+  //   await this.client.connect();
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get('/')

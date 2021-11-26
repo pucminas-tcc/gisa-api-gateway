@@ -20,9 +20,9 @@ export class PlanController {
     private readonly associateClient: ClientProxy,
   ) {}
 
-  async onApplicationBootstrap() {
-    await this.associateClient.connect();
-  }
+  // async onApplicationBootstrap() {
+  //   await this.associateClient.connect();
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get('/')
