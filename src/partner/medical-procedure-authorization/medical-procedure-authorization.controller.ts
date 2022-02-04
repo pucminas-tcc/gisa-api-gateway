@@ -10,8 +10,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
-
+@ApiTags('partner')
 @Controller('partner-medical-procedure-authorization')
 export class MedicalProcedureAuthorizationController {
   private readonly logger = new Logger(
@@ -23,9 +24,9 @@ export class MedicalProcedureAuthorizationController {
     private readonly client: ClientProxy,
   ) {}
 
-  // async onApplicationBootstrap() {
-  //   await this.client.connect();
-  // }
+  async onApplicationBootstrap() {
+    await this.client.connect();
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('/')

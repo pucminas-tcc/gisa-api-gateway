@@ -11,8 +11,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
+@ApiTags('identity')
 @Controller('identity')
 export class IdentityController {
   private readonly logger = new Logger(IdentityController.name);
@@ -20,11 +22,11 @@ export class IdentityController {
   constructor(
     @Inject('GISA_IDENTITY_SERVICE')
     private readonly identityClient: ClientProxy,
-  ) {}
+  ) { }
 
-  // async onApplicationBootstrap() {
-  //   await this.identityClient.connect();
-  // }
+  async onApplicationBootstrap() {
+    await this.identityClient.connect();
+  }
 
   @Post('/')
   async register(@Body() request: any) {

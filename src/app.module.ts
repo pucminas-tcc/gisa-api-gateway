@@ -5,6 +5,8 @@ import { IdentityModule } from './identity/identity.module';
 import { HealthModule } from './health/health.module';
 import { AssociateModule } from './associate/associate.module';
 import { PartnerModule } from './partner/partner.module';
+import { SgpsController } from './sgps/sgps.controller';
+import { SgpsModule } from './sgps/sgps.module';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { PartnerModule } from './partner/partner.module';
     }),
     AssociateModule,
     PartnerModule,
+    SgpsModule
   ],
   controllers: [],
   providers: [],

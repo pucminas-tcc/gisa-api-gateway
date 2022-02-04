@@ -1,7 +1,9 @@
 import { Controller, Get, Inject, Logger, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
+@ApiTags('associate')
 @Controller('associate-type')
 export class TypeController {
   private readonly logger = new Logger(TypeController.name);
@@ -11,9 +13,9 @@ export class TypeController {
     private readonly associateClient: ClientProxy,
   ) {}
 
-    // async onApplicationBootstrap() {
-    //   await this.associateClient.connect();
-    // }
+    async onApplicationBootstrap() {
+      await this.associateClient.connect();
+    }
 
   @UseGuards(JwtAuthGuard)
   @Get('/')

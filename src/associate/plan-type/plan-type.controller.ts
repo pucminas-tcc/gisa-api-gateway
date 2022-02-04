@@ -10,7 +10,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
+@ApiTags('associate')
 
 @Controller('associate-plan-type')
 export class PlanTypeController {
@@ -21,9 +23,9 @@ export class PlanTypeController {
     private readonly client: ClientProxy,
   ) {}
 
-  // async onApplicationBootstrap() {
-  //   await this.client.connect();
-  // }
+  async onApplicationBootstrap() {
+    await this.client.connect();
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('/')

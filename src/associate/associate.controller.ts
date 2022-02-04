@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Inject,
@@ -7,8 +8,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
 
+@ApiTags('associate')
 @Controller('associate')
 export class AssociateController {
   private readonly logger = new Logger(AssociateController.name);
@@ -16,12 +19,12 @@ export class AssociateController {
   constructor(
     @Inject('GISA_ASSOCIATE_SERVICE')
     private readonly associateClient: ClientProxy,
-  ) {}
+  ) { }
 
-  // async onApplicationBootstrap() {
-  //   await this.associateClient.connect();
-  // }
-  
+  async onApplicationBootstrap() {
+    await this.associateClient.connect();
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get()
   async associates() {
@@ -32,8 +35,12 @@ export class AssociateController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  async associate_info(@Param() param: any) {
-    this.logger.log('.');
+  @Get("/is-active")
+  async associate_is_active(@Body() body: any) {
+    return await this.associateClient.send<string>(
+      { cmd: 'associate.is-active' },
+      body,
+    )
   }
+
 }

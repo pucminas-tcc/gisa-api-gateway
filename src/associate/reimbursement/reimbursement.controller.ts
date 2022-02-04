@@ -10,8 +10,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
-
+@ApiTags('associate')
 @Controller('associate-reimbursement')
 export class ReimbursementController {
   private readonly logger = new Logger(ReimbursementController.name);
@@ -21,9 +22,9 @@ export class ReimbursementController {
     private readonly associateClient: ClientProxy,
   ) {}
 
-  // async onApplicationBootstrap() {
-  //   await this.associateClient.connect();
-  // }
+  async onApplicationBootstrap() {
+    await this.associateClient.connect();
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('/')

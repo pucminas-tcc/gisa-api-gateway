@@ -9,8 +9,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt.guard';
-
+@ApiTags('associate')
 @Controller('associate-plan')
 export class PlanController {
   private readonly logger = new Logger(PlanController.name);
@@ -18,11 +19,11 @@ export class PlanController {
   constructor(
     @Inject('GISA_ASSOCIATE_SERVICE')
     private readonly associateClient: ClientProxy,
-  ) {}
+  ) { }
 
-  // async onApplicationBootstrap() {
-  //   await this.associateClient.connect();
-  // }
+  async onApplicationBootstrap() {
+    await this.associateClient.connect();
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('/')

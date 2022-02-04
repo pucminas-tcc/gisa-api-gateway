@@ -8,8 +8,9 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-
+@ApiTags('authentication')
 @Controller('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
